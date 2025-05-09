@@ -1,0 +1,37 @@
+<!doctype html>
+{% load tfjs_models %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Coco SSD Demo</title>
+  </head>
+  <body>
+    <h2 id="info">AI loading...</h2>
+    <video id="webcam" autoplay></video>
+
+    <script>
+      function loadedCallback() {
+        console.log("loadedcallback setting status");
+        info = document.getElementById("info");
+        info.innerText = "AI loaded!!!";
+      }
+
+      function predictionCallback(predictions) {
+        console.log(predictions);
+      }
+      cocoConfig = {
+        videoId: "webcam",
+        websocketPath: "ws/demo/cam1",
+        modelLoadedCallback: loadedCallback,
+        detectCallbacks: [predictionCallback],
+        modelConfig: {},
+        detectConfig: { maxNumBoxes: 20, minScore: 0.5 },
+        userMediaConstraints: {
+          video: true,
+        },
+      };
+    </script>
+
+    {% coco_ssd_js config_variable="cocoConfig" %}
+  </body>
+</html>

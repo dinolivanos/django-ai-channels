@@ -1,0 +1,12 @@
+wheel
+flake8
+pylint
+pylint-django
+jupyter-console
+isort
+black
+pytest
+python-lsp-server[all]
+
+
+channels[daphne]

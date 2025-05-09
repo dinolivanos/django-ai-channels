@@ -1,0 +1,18 @@
+{% load static %}
+
+<script type="module">
+  import {initializeModel, createClassifyCallback, activateVideoStream} from "{% static 'aichannels/mp_video_classifier.js' %}";
+
+  let model = await initializeModel(
+    '{{modelUrl}}',
+    "VIDEO",
+    {{modelReadyCallback}},
+    {{maxResults}},
+    {{scoreThreshold}}
+  );
+
+  const wsUrl = 'ws://{{ host }}/{{ websocketPath }}';
+  let classifyCallback = createClassifyCallback(model, '{{videoId}}', wsUrl);
+
+  activateVideoStream('{{videoId}}', classifyCallback);
+</script>

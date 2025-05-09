@@ -1,0 +1,23 @@
+<!doctype html>
+{% load mediapipe %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video Classifier Demo</title>
+  </head>
+  <body>
+    <h2 id="info">AI loading...</h2>
+    <video id="webcam" autoplay></video>
+
+    <script>
+      function loadedCallback() {
+        console.log("loadedcallback setting status");
+        info = document.getElementById("info");
+        info.innerText = "AI loaded!!!";
+      }
+    </script>
+
+    <!-- prettier-ignore -->
+    {% video_classifier video_id="webcam" websocket_path='ws/demo/cam0' model_ready_callback="loadedCallback" max_results=3 score_threshold=0.1 %}
+  </body>
+</html>

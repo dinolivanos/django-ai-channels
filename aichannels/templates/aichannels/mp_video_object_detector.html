@@ -1,0 +1,18 @@
+{% load static %}
+
+<script type="module">
+  import {initializeModel, createDetectionCallback, activateVideoStream} from "{% static 'aichannels/mp_video_object_detector.js' %}";
+
+  let model = await initializeModel(
+    '{{modelUrl}}',
+    "VIDEO",
+    {{modelReadyCallback}},
+    {{maxResults}},
+    {{scoreThreshold}}
+  );
+
+  const wsUrl = 'ws://{{ host }}/{{ websocketPath }}';
+  let classifyCallback = createDetectionCallback(model, '{{videoId}}', wsUrl);
+
+  activateVideoStream('{{videoId}}', classifyCallback);
+</script>

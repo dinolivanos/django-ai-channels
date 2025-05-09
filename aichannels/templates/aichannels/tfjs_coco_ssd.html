@@ -1,0 +1,16 @@
+{% load static %}
+<!-- Import TensorFlow.js library -->
+<script
+  src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"
+  type="text/javascript"
+></script>
+
+<!-- Load the coco-ssd model to use to recognize things in images -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+<script type="module">
+  import {cocoSetup} from "{% static 'aichannels/tfjs_coco_ssd.js' %}";
+  let config = {{config_variable}};
+  config['host'] = '{{host}}';
+  cocoSetup(config);
+</script>
